@@ -24,14 +24,14 @@ export class UserDetailsComponent implements OnInit {
       let userName = params['userName'];
       let passWord = params['passWord'];
       // Retrieve Pet with Id route param
-      this.userService.findUserByUserName(userName, passWord).subscribe(
-        user => this.user = user);
+  //    this.userService.findUserByUserName(userName, passWord).subscribe(
+      (user => this.user = user);
       console.log(this.sub)
     });
   }
 
-  ngOnDestroy() {
+  /* ngOnDestroy() {
     // Clean sub to avoid memory leak
     this.sub.unsubscribe();
-  }
+  }*/
 }

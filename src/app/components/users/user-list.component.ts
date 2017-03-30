@@ -13,16 +13,46 @@ import {UserService} from "../../services/user.service";
 export class UserListComponent implements OnInit {
   // Private property for binding
   users: Observable<User[]>;
-  foundUser: Observable<User[]>;
 
   constructor(private userService: UserService) {
   }
-
   // Load data ones componet is ready
   ngOnInit() {
-    // Pass retreived pets to the property
-    this.users = this.userService.findUsers();
-  //  this.foundUser = this.userService.findUser();
-
+    this.findUsers();
   }
+
+  findUsers() {
+    this.userService.findUsers().subscribe(
+      // the first argument is a function which runs on success
+      data => { this.users = data},
+      // the second argument is a function which runs on error
+      err => console.error(err),
+      // the third argument is a function which runs on completion
+      () => console.log('done loading users')
+    );
+  }
+
+  createUser(userName, passWord, email){
+      let user = {
+          userName: userName,
+          passWord: passWord,
+          email: email
+        };
+      this.userService.createUser(user).subscribe(
+        data => {
+       //   console.log(data)
+          // refresh the list
+          this.findUsers();
+          return true;
+        },
+        error => {
+          console.error("Error create a new User!");
+          return error;
+        }
+      );
+    }
+
+
+
+
 }
