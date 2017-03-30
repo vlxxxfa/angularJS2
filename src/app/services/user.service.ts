@@ -24,7 +24,7 @@ export class UserService {
     // .catch(error => Observable.throw(error.json().error || 'Server error')));
   }
 
-  // Add a new comment
+  // Add a new user
   createUser(user) {
     let bodyString = JSON.stringify(user); // Stringify payload
     console.log(bodyString);
@@ -34,12 +34,22 @@ export class UserService {
       .map((res: Response) => res.json()); // ...and calling .json() on the response to return data
   }
 
+  // Update a new user
+  updateUser(user) {
+    let bodyString = JSON.stringify(user); // Stringify payload
+    console.log(bodyString);
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(this.baseUrl + 'updateUser', bodyString, options) // ...using post request
+      .map((res: Response) => res.json()); // ...and calling .json() on the response to return data
+  }
+
   deleteUser(username) {
     console.log(username);
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     return this.http.post(this.baseUrl + 'deleteUser/' + username, options) // ...using post request
-    
+
     /* findUserByUserName(userName: string, passWord) {
      return this.http.get(this.baseUrl + 'findUser/' + userName +'/'+ passWord)
      .map(response => response.json());

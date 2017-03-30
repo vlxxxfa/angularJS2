@@ -5,6 +5,7 @@
     <input type="text" name="new_user" [(ngModel)]="password" placeholder="password"><br>
     <input type="text" name="new_user" [(ngModel)]="email" placeholder="email"><br>
     <button (click)="createUser(username, password, email)">Create</button>
+    <button (click)="updateUser(username, password, email)">Update</button>
   </p>
 </div>
 
@@ -13,7 +14,6 @@
   <p>List of users</p>
   <ul class="demo-list-icon mdl-list">
     <li class="mdl-list__item" *ngFor="let user of users">
-      <button (click)="updateUser(user.userName)">Update</button>
       <button (click)="deleteUser(user.userName)">Delete</button>
         <span class="mdl-list__item-primary-content">
             <a [routerLink]="['/users', user.userName]">

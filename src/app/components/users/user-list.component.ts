@@ -55,6 +55,25 @@ export class UserListComponent implements OnInit {
     );
   }
 
+  updateUser(userName, passWord, email) {
+    let user = {
+      userName: userName,
+      passWord: passWord,
+      email: email
+    };
+    this.userService.updateUser(user).subscribe(
+      data => {
+        //   console.log(data)
+        // refresh the list
+        this.findUsers();
+        return true;
+      },
+      error => {
+        console.error("Error update a exist User!");
+        return error;
+      }
+    );
+  }
 
   deleteUser(userName) {
     if (confirm("Are you sure you want to delete " + userName + "?")) {
