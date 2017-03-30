@@ -1,0 +1,13 @@
+<h2>Users</h2>
+<p>List of users</p>
+<ul class="demo-list-icon mdl-list">
+  <li class="mdl-list__item" *ngFor="let user of users | async">
+        <span class="mdl-list__item-primary-content">
+            <a [routerLink]="['/users', user.userName]">
+              {{user.userName}},
+              {{user.passWord}}
+            {{user.email}},
+            {{user.photoAlbumList}}</a>
+        </span>
+  </li>
+</ul>

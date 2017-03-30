@@ -1,0 +1,10 @@
+<h2>Photoalben</h2>
+<p>List of PhotoAlben By User</p>
+<ul class="demo-list-icon mdl-list">
+  <li class="mdl-list__item" *ngFor="let user of user | async">
+        <span class="mdl-list__item-primary-content">
+            <i class="material-icons mdl-list__item-icon">User: </i>
+            <a [routerLink]="['/photoAlben', user.photoAlbumList.value]">{{user.photoAlbumList.value}</a>
+        </span>
+  </li>
+</ul>
