@@ -16,6 +16,7 @@ export class UserListComponent implements OnInit {
 
   constructor(private userService: UserService) {
   }
+
   // Load data ones componet is ready
   ngOnInit() {
     this.findUsers();
@@ -24,7 +25,9 @@ export class UserListComponent implements OnInit {
   findUsers() {
     this.userService.findUsers().subscribe(
       // the first argument is a function which runs on success
-      data => { this.users = data},
+      data => {
+        this.users = data
+      },
       // the second argument is a function which runs on error
       err => console.error(err),
       // the third argument is a function which runs on completion
@@ -32,27 +35,41 @@ export class UserListComponent implements OnInit {
     );
   }
 
-  createUser(userName, passWord, email){
-      let user = {
-          userName: userName,
-          passWord: passWord,
-          email: email
-        };
-      this.userService.createUser(user).subscribe(
+  createUser(userName, passWord, email) {
+    let user = {
+      userName: userName,
+      passWord: passWord,
+      email: email
+    };
+    this.userService.createUser(user).subscribe(
+      data => {
+        //   console.log(data)
+        // refresh the list
+        this.findUsers();
+        return true;
+      },
+      error => {
+        console.error("Error create a new User!");
+        return error;
+      }
+    );
+  }
+
+
+  deleteUser(userName) {
+    if (confirm("Are you sure you want to delete " + userName + "?")) {
+      this.userService.deleteUser(userName).subscribe(
         data => {
-       //   console.log(data)
+          //   console.log(data)
           // refresh the list
           this.findUsers();
           return true;
         },
         error => {
-          console.error("Error create a new User!");
+          console.error("Error delete a user!");
           return error;
         }
       );
     }
-
-
-
-
+  }
 }
