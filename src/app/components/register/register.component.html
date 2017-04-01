@@ -1,19 +1,14 @@
 <div class="login jumbotron center-block">
   <h1>Register</h1>
-  <form role="form" (submit)="login($event, username.value, password.value)">
     <div class="form-group">
-      <label for="username">Username</label>
-      <input type="text" #username class="form-control" id="username" placeholder="Username">
+      <input type="text" class="form-control" [(ngModel)]="username" placeholder="Username">
     </div>
     <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" #password class="form-control" id="password" placeholder="Password">
+      <input type="text" class="form-control" [(ngModel)]="password" placeholder="Password">
     </div>
     <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" #email class="form-control" id="email" placeholder="Email">
+      <input type="email" class="form-control" [(ngModel)]="email" placeholder="Email">
     </div>
-    <button type="submit" class="btn btn-default">Submit</button>
+    <button (click)="createUser(username, password, email)">Create</button>
     <a [routerLink]="['/login']">Click here to Login</a>
-  </form>
 </div>
