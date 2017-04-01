@@ -1,4 +1,13 @@
 <div>
+  <h3>Save a new photo</h3>
+  <p>(title is primary key, can't change, no update, only create and delete)</p>
+  <p>
+    <input type="text" name="new_photo" [(ngModel)]="title" placeholder="title"><br>
+    <button (click)="createPhotoByAlbumTitleOfUser(userName, albumTitle, title)">Save</button>
+  </p>
+</div>
+
+<div>
   <h3>List of photos of photoAlbum: "{{albumTitle}}"</h3>
   <ul class="demo-list-icon mdl-list">
     <li class="mdl-list__item" *ngFor="let photo of photos">

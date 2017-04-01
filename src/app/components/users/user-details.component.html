@@ -12,6 +12,7 @@
   <ul class="demo-list-icon mdl-list">
     <li class="mdl-list__item" *ngFor="let photoalbum of photoalben">
       <span class="mdl-list__item-primary-content">
+        <button (click)="deletePhotoAlbumByUser(userName, photoalbum.albumTitle)">Delete</button>
         <a [routerLink]="['/photoalbum-details', userName, photoalbum.albumTitle]">{{photoalbum.albumTitle}}</a>
         </span>
     </li>
