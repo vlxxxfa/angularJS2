@@ -12,6 +12,7 @@
   <ul class="demo-list-icon mdl-list">
     <li class="mdl-list__item" *ngFor="let photo of photos">
       <span class="mdl-list__item-primary-content">
+         <button (click)="deletePhotoByUserNameAndPhotoAlbumTitle(userName, albumTitle, photo.title)">Delete</button>
           {{photo.title}}
         </span>
     </li>

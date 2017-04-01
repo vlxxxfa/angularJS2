@@ -102,4 +102,12 @@ export class UserService {
     let options = new RequestOptions({headers: headers});
     return this.http.post(this.baseUrl + userName + '/photoAlben/' + 'deletePhotoAlbumByUserName/'+ albumTitle, options) // ...using post request
   }
+
+  deletePhotoByUserNameAndPhotoAlbumTitle(userName, albumTitle, photo){
+    let bodyString = JSON.stringify(photo); // Stringify payload
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(this.baseUrl + userName + '/' + albumTitle + '/photos/' + 'deletePhotoByUserNameAndPhotoAlbumTitle', bodyString, options) // ...using post request
+
+  }
 }
