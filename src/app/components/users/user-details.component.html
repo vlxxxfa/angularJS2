@@ -1,5 +1,21 @@
 <div>
+  <h3>Create a new photoalbum</h3>
+  <p>(albumTitle is primary key, can't change, no update, only create and delete)</p>
+  <p>
+    <input type="text" name="new_user" [(ngModel)]="albumTitle" placeholder="albumTitle"><br>
+    <button (click)="createPhotoAlbumByUser(userName, albumTitle)">Create</button>
+  </p>
+</div>
 
-Details for user: {{userName}}
+<div>
+  <h3>List of photoalben by User: "{{userName}}"</h3>
+  <ul class="demo-list-icon mdl-list">
+    <li class="mdl-list__item" *ngFor="let photoalbum of photoalben">
+      <span class="mdl-list__item-primary-content">
+           <a [routerLink]="['/user--photoalbum-details']">
+              {{photoalbum.albumTitle}}</a>
+        </span>
+    </li>
+  </ul>
 </div>
 

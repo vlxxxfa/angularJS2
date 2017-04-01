@@ -14,7 +14,6 @@ import {Photoalbum} from "../../models/photoalbum";
 export class UserListComponent implements OnInit {
   // Private property for binding
   users: Array<User[]>;
-  photoalben: Array<Photoalbum[]>;
   private user: Observable<User[]>;
 
 
@@ -94,19 +93,6 @@ export class UserListComponent implements OnInit {
         }
       );
     }
-  }
-
-  findAllPhotoAlbenByUser(username) {
-    this.userService.findAllPhotoAlbenByUser(username).subscribe(
-      // the first argument is a function which runs on success
-      data => {
-        this.photoalben = data
-      },
-      // the second argument is a function which runs on error
-      err => console.error(err),
-      // the third argument is a function which runs on completion
-      () => console.log('done loading users')
-    );
   }
 
   findUserByUserNameAndPassword(username, password){

@@ -74,4 +74,14 @@ export class UserService {
       .map(response => response.json());
     // .catch(error => Observable.throw(error.json().error || 'Server error')));
   }
+
+ // Add a new user
+  createPhotoAlbumByUser(userName, photoAlbum) {
+    let bodyString = JSON.stringify(photoAlbum); // Stringify payload
+    console.log(bodyString);
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(this.baseUrl + userName + '/photoAlben/createPhotoAlbumByUserName', bodyString, options) // ...using post request
+      .map((res: Response) => res.json()); // ...and calling .json() on the response to return data
+  }
 }

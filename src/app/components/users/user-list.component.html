@@ -7,7 +7,6 @@
     <input type="text" name="new_user" [(ngModel)]="email" placeholder="email"><br>
     <button (click)="createUser(username, password, email)">Create</button>
     <button (click)="updateUser(username, password, email)">Update</button><br><br>
-    <button (click)="findUserByUserNameAndPassword(username, password)">Get by Username and password</button>
   </p>
 </div>
 
@@ -18,11 +17,9 @@
       <button (click)="deleteUser(user.userName)">Delete</button>
       <span class="mdl-list__item-primary-content">
             <a [routerLink]="['/user-details', user.userName]">
-
-              {{user.userName}},
-              {{user.passWord}}
-            {{user.email}},
-            {{user.photoAlbumList}}</a>
+              {{user.userName}}</a>
+        {{user.passWord}}
+        {{user.email}}
         </span>
     </li>
   </ul>
