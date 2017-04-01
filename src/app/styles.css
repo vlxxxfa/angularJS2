@@ -28,3 +28,35 @@
   width: 80%;
   margin: 0 auto;
 }
+
+/* Fixed navbar */
+body {
+  padding-top: 90px;
+}
+/* General sizing */
+ul.dropdown-lr {
+  width: 300px;
+}
+
+/* mobile fix */
+@media (max-width: 768px) {
+  .dropdown-lr h3 {
+    color: #eee;
+  }
+  .dropdown-lr label {
+    color: #eee;
+  }
+}
+
+.login jumbotron {
+  padding: 0.5em 0.6em;
+h1 {
+  font-size: 2em;
+}
+p {
+  font-size: 1.2em;
+.btn {
+  padding: 0.5em;
+}
+}
+}

@@ -8,6 +8,8 @@ import {UserListComponent} from "./components/users/user-list.component";
 import {UserDetailsComponent} from "./components/users/user-details.component";
 import {UserService} from "./services/user.service";
 import {PhotoAlbumDetailsComponent} from "./components/users/photoalbum-details.component";
+import {LoginComponent} from "./components/login/login.component";
+import {RegisterComponent} from "./components/register/register.component";
 
 @NgModule({
   imports: [
@@ -21,7 +23,9 @@ import {PhotoAlbumDetailsComponent} from "./components/users/photoalbum-details.
     AppComponent,
     UserListComponent,
     UserDetailsComponent,
-    PhotoAlbumDetailsComponent
+    PhotoAlbumDetailsComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   providers: [
     UserService
