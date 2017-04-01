@@ -58,12 +58,6 @@ export class UserService {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     return this.http.post(this.baseUrl + 'deleteUser/' + username, options) // ...using post request
-
-    /* findUserByUserName(userName: string, passWord) {
-     return this.http.get(this.baseUrl + 'findUser/' + userName +'/'+ passWord)
-     .map(response => response.json());
-     //  .catch(error => Observable.throw(error.json().error || 'Server error')));
-     }*/
   }
 
   findAllPhotoAlbenByUser(username) {
@@ -75,7 +69,7 @@ export class UserService {
     // .catch(error => Observable.throw(error.json().error || 'Server error')));
   }
 
- // Add a new user
+ // Add a new photoAlbum to exist user
   createPhotoAlbumByUser(userName, photoAlbum) {
     let bodyString = JSON.stringify(photoAlbum); // Stringify payload
     console.log(bodyString);
@@ -83,5 +77,14 @@ export class UserService {
     let options = new RequestOptions({headers: headers});
     return this.http.post(this.baseUrl + userName + '/photoAlben/createPhotoAlbumByUserName', bodyString, options) // ...using post request
       .map((res: Response) => res.json()); // ...and calling .json() on the response to return data
+  }
+
+  findAllPhotosByUserNameAndPhotoAlbumTitle(userName, albumTitle) {
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    // Return response
+    return this.http.get(this.baseUrl + userName + '/' + albumTitle + '/photos/findAllPhotosByUserNameAndPhotoAlbumTitle')
+      .map(response => response.json());
+    // .catch(error => Observable.throw(error.json().error || 'Server error')));
   }
 }

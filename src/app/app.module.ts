@@ -7,6 +7,7 @@ import {routing} from './app.routes';
 import {UserListComponent} from "./components/users/user-list.component";
 import {UserDetailsComponent} from "./components/users/user-details.component";
 import {UserService} from "./services/user.service";
+import {PhotoAlbumDetailsComponent} from "./components/users/photoalbum-details.component";
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import {UserService} from "./services/user.service";
   declarations: [
     AppComponent,
     UserListComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    PhotoAlbumDetailsComponent
   ],
   providers: [
     UserService

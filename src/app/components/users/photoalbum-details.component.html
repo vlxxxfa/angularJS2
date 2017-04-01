@@ -1,0 +1,10 @@
+<div>
+  <h3>List of photos of photoAlbum: "{{albumTitle}}"</h3>
+  <ul class="demo-list-icon mdl-list">
+    <li class="mdl-list__item" *ngFor="let photo of photos">
+      <span class="mdl-list__item-primary-content">
+          {{photo.title}}
+        </span>
+    </li>
+  </ul>
+</div>

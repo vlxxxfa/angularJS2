@@ -12,8 +12,7 @@
   <ul class="demo-list-icon mdl-list">
     <li class="mdl-list__item" *ngFor="let photoalbum of photoalben">
       <span class="mdl-list__item-primary-content">
-           <a [routerLink]="['/user--photoalbum-details']">
-              {{photoalbum.albumTitle}}</a>
+        <a [routerLink]="['/photoalbum-details', userName, photoalbum.albumTitle]">{{photoalbum.albumTitle}}</a>
         </span>
     </li>
   </ul>
