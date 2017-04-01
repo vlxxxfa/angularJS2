@@ -1,20 +1,29 @@
 <div class="jumbotron center-block">
-  <h3>List of photos of photoAlbum: "{{albumTitle}}"</h3>
-  <ul class="demo-list-icon mdl-list">
-    <li class="mdl-list__item" *ngFor="let photo of photos">
-      <span class="mdl-list__item-primary-content">
-         <button (click)="deletePhotoByUserNameAndPhotoAlbumTitle(userName, albumTitle, photo.title)">Delete</button>
-          {{photo.title}}
-        </span>
-    </li>
-  </ul>
-</div>
-
-<div class="jumbotron center-block">
-  <h3>Save a new photo</h3>
+  <h3>Save a new photo in photoalbum: "{{albumTitle}}"</h3>
   <p>(title is primary key, can't change, no update, only create and delete)</p>
+  <br>
+  <label class="control-label">Select File</label>
+  <input id="input-2" name="input2[]" type="file" class="file" multiple data-show-upload="false"
+         data-show-caption="true">
+  <br>
   <p>
     <input type="text" name="new_photo" [(ngModel)]="title" placeholder="title"><br>
     <button (click)="createPhotoByAlbumTitleOfUser(userName, albumTitle, title)">Save</button>
+
   </p>
+</div>
+
+<div class="jumbotron center-block">
+  <div class="row">
+    <h3>Photos in photoAlbum: "{{albumTitle}}"</h3>
+    <ul class="demo-list-icon mdl-list">
+      <li class="mdl-list__item" *ngFor="let photo of photos">
+    <div class="col-xs-3">
+    <a href="#" class="thumbnail">
+      {{photo.title}}<img src="http://placehold.it/350x350" class="img-responsive"><button (click)="deletePhotoByUserNameAndPhotoAlbumTitle(userName, albumTitle, photo.title)">Delete</button>
+    </a>
+  </div>
+      </li>
+    </ul>
+  </div>
 </div>
