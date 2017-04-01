@@ -1,4 +1,4 @@
-import {NgModule}       from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule}       from '@angular/core';
 import {BrowserModule}  from '@angular/platform-browser';
 import {FormsModule}    from '@angular/forms';
 import {HttpModule, JsonpModule} from '@angular/http';
@@ -24,6 +24,8 @@ import {UserService} from "./services/user.service";
   providers: [
     UserService
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
   bootstrap: [AppComponent]
 })
 export class AppModule {

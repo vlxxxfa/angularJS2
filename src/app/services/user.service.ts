@@ -24,6 +24,15 @@ export class UserService {
     // .catch(error => Observable.throw(error.json().error || 'Server error')));
   }
 
+  findUserByUserNameAndPassword(username, password) {
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    // Return response
+    return this.http.get(this.baseUrl + 'findUser/' + username + '/' + password + options)
+      .map(response => response.json());
+    // .catch(error => Observable.throw(error.json().error || 'Server error')));
+  }
+
   // Add a new user
   createUser(user) {
     let bodyString = JSON.stringify(user); // Stringify payload
@@ -55,5 +64,14 @@ export class UserService {
      .map(response => response.json());
      //  .catch(error => Observable.throw(error.json().error || 'Server error')));
      }*/
+  }
+
+  findAllPhotoAlbenByUser(username) {
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    // Return response
+    return this.http.get(this.baseUrl + username + '/photoAlben/findAllPhotoAlbenByUserName')
+      .map(response => response.json());
+    // .catch(error => Observable.throw(error.json().error || 'Server error')));
   }
 }

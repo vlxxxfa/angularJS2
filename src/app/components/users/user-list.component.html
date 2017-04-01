@@ -1,22 +1,24 @@
 <div>
-  <h3>Create a new user</h3>
+  <h3>Create/Update a new user</h3>
+  <p>(username is primary key, can't change)</p>
   <p>
     <input type="text" name="new_user" [(ngModel)]="username" placeholder="username"><br>
     <input type="text" name="new_user" [(ngModel)]="password" placeholder="password"><br>
     <input type="text" name="new_user" [(ngModel)]="email" placeholder="email"><br>
     <button (click)="createUser(username, password, email)">Create</button>
-    <button (click)="updateUser(username, password, email)">Update</button>
+    <button (click)="updateUser(username, password, email)">Update</button><br><br>
+    <button (click)="findUserByUserNameAndPassword(username, password)">Get by Username and password</button>
   </p>
 </div>
 
 <div>
-  <h3>Users</h3>
-  <p>List of users</p>
+  <h3>List of users</h3>
   <ul class="demo-list-icon mdl-list">
     <li class="mdl-list__item" *ngFor="let user of users">
       <button (click)="deleteUser(user.userName)">Delete</button>
-        <span class="mdl-list__item-primary-content">
-            <a [routerLink]="['/users', user.userName]">
+      <span class="mdl-list__item-primary-content">
+            <a [routerLink]="['/user-details', user.userName]">
+
               {{user.userName}},
               {{user.passWord}}
             {{user.email}},

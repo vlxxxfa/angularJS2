@@ -3,6 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {User} from "../../models/user";
 import {UserService} from "../../services/user.service";
+import {Photoalbum} from "../../models/photoalbum";
 
 @Component({
   templateUrl: './user-list.component.html',
@@ -12,12 +13,15 @@ import {UserService} from "../../services/user.service";
 // Component class implementing OnInit
 export class UserListComponent implements OnInit {
   // Private property for binding
-  users: Observable<User[]>;
+  users: Array<User[]>;
+  photoalben: Array<Photoalbum[]>;
+  private user: Observable<User[]>;
+
 
   constructor(private userService: UserService) {
   }
 
-  // Load data ones componet is ready
+  // Load data ones component is ready
   ngOnInit() {
     this.findUsers();
   }
@@ -26,7 +30,7 @@ export class UserListComponent implements OnInit {
     this.userService.findUsers().subscribe(
       // the first argument is a function which runs on success
       data => {
-        this.users = data
+        this.users = data;
       },
       // the second argument is a function which runs on error
       err => console.error(err),
@@ -50,7 +54,7 @@ export class UserListComponent implements OnInit {
       },
       error => {
         console.error("Error create a new User!");
-        return error;
+        return Observable.throw(error);
       }
     );
   }
@@ -70,7 +74,7 @@ export class UserListComponent implements OnInit {
       },
       error => {
         console.error("Error update a exist User!");
-        return error;
+        return Observable.throw(error);
       }
     );
   }
@@ -86,9 +90,27 @@ export class UserListComponent implements OnInit {
         },
         error => {
           console.error("Error delete a user!");
-          return error;
+          return Observable.throw(error);
         }
       );
     }
+  }
+
+  findAllPhotoAlbenByUser(username) {
+    this.userService.findAllPhotoAlbenByUser(username).subscribe(
+      // the first argument is a function which runs on success
+      data => {
+        this.photoalben = data
+      },
+      // the second argument is a function which runs on error
+      err => console.error(err),
+      // the third argument is a function which runs on completion
+      () => console.log('done loading users')
+    );
+  }
+
+  findUserByUserNameAndPassword(username, password){
+
+    console.log(this.userService.findUserByUserNameAndPassword(username, password));
   }
 }

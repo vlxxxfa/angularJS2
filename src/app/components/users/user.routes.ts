@@ -9,6 +9,6 @@ import {UserDetailsComponent}    from './user-details.component';
 // Route Configuration
 export const userRoutes: Routes = [
   { path: 'users', component: UserListComponent },
-  { path: 'users/:id', component: UserDetailsComponent }
+  { path: 'user-details/:userName', component: UserDetailsComponent }
 
 ];
