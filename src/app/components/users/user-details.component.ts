@@ -75,6 +75,23 @@ export class UserDetailsComponent implements OnInit {
     );
   }
 
+  deletePhotoAlbumByUser(userName, albumTitle){
+    if (confirm("Are you sure you want to delete " + albumTitle + "?")) {
+      this.userService.deletePhotoAlbumByUser(userName, albumTitle).subscribe(
+        data => {
+          //   console.log(data)
+          // refresh the list
+          this.findAllPhotoAlbenByUser(userName);
+          return true;
+        },
+        error => {
+          console.error("Error delete a photoAlbum!");
+          return Observable.throw(error);
+        }
+      );
+    }
+  }
+
   ngOnDestroy() {
     this.sub.unsubscribe();
   }

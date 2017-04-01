@@ -96,4 +96,10 @@ export class UserService {
     return this.http.post(this.baseUrl + userName + '/' + albumTitle+ '/photos/createPhotoByAlbumTitleOfUser', bodyString, options) // ...using post request
       .map((res: Response) => res.json()); // ...and calling .json() on the response to return data
   }
+
+  deletePhotoAlbumByUser(userName, albumTitle){
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(this.baseUrl + userName + '/photoAlben/' + 'deletePhotoAlbumByUserName/'+ albumTitle, options) // ...using post request
+  }
 }
