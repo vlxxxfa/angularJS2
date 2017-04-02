@@ -3,10 +3,10 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {User} from "../../models/user";
 import {UserService} from "../../services/user.service";
-import {Photoalbum} from "../../models/photoalbum";
 
 @Component({
   templateUrl: './user-list.component.html',
+  styleUrls: ['../../styles.css'],
   // Providers
   providers: [UserService]
 })

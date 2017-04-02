@@ -9,6 +9,7 @@ import {Photo} from "../../models/photo";
 
 @Component({
   templateUrl: './user-details.component.html',
+  styleUrls: ['../../styles.css'],
   // Providers
   providers: [UserService]
 })

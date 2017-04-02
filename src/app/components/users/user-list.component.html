@@ -1,26 +1,39 @@
 <div class="jumbotron center-block">
   <h3>List of users</h3>
-  <ul class="demo-list-icon mdl-list">
-    <li class="mdl-list__item" *ngFor="let user of users">
-      <button (click)="deleteUser(user.userName)">Delete</button>
-      <span class="mdl-list__item-primary-content">
-            <a [routerLink]="['/user-details', user.userName]">
-              {{user.userName}}</a>
-        {{user.passWord}}
-        {{user.email}}
-        </span>
-    </li>
-  </ul>
+<div class="row">
+  <div class="col-xs-6" *ngFor="let user of users">
+    <div class="media">
+      <a href="#" class="pull-left">
+        <img src="http://placehold.it/180x200/456" class="media-object" alt="Sample Image">
+      </a>
+      <div class="media-body">
+        <h4>Username: <a [routerLink]="['/user-details', user.userName]">{{user.userName}}</a></h4>
+        <h4>Password: {{user.passWord}}</h4>
+        <h4>Email: {{user.email}}</h4>
+        <button class="btn btn-default btn-xs" (click)="deleteUser(user.userName)">Delete</button>
+      </div>
+    </div>
+  </div>
+  </div>
 </div>
+
+
+
+
+
 
 <div class="jumbotron center-block">
   <h3>Create/Update a new user</h3>
   <p>(username is primary key, can't change)</p>
-  <p>
-    <input type="text" name="new_user" [(ngModel)]="username" placeholder="username"><br>
-    <input type="text" name="new_user" [(ngModel)]="password" placeholder="password"><br>
-    <input type="text" name="new_user" [(ngModel)]="email" placeholder="email"><br>
-    <button (click)="createUser(username, password, email)">Create</button>
-    <button (click)="updateUser(username, password, email)">Update</button><br><br>
-  </p>
+  <div class="form-group">
+    <input type="text" class="form-control" [(ngModel)]="username" placeholder="username">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" [(ngModel)]="password" placeholder="password">
+  </div>
+ <div class="form-group">
+    <input type="text" class="form-control" [(ngModel)]="email" placeholder="email">
+  </div>
+    <button class="btn btn-default btn-xs" (click)="createUser(username, password, email)">Create</button>
+    <button class="btn btn-default btn-xs" (click)="updateUser(username, password, email)">Update</button>
 </div>

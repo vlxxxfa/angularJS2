@@ -10,13 +10,9 @@ import {RegisterComponent} from "./components/register/register.component";
 // Route Configuration
 export const routes: Routes = [
   {
-    path: '',
-    redirectTo: '/',
-    pathMatch: 'full'
-  },
-  {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    pathMatch: 'full'
   },
   {
     path: 'register',
@@ -26,7 +22,7 @@ export const routes: Routes = [
   ...userRoutes,
   {
     path: '**',
-    redirectTo: '/'
+    redirectTo: '/login'
   }
 ];
 
