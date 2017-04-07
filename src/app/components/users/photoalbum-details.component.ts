@@ -1,6 +1,7 @@
 // Imports
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {Http, Response, Headers, RequestOptions} from "@angular/http";
 import {UserService} from "../../services/user.service";
 import {Observable} from "rxjs";
 import {Photo} from "../../models/photo";
@@ -16,17 +17,7 @@ const URL = 'http://localhost:8080/users/' + this.userName + '/' + this.albumTit
   // Providers
   providers: [UserService]
 })
-// Component class implementing OnInit
 export class PhotoAlbumDetailsComponent implements OnInit {
-
-  private uploader: MultipartUploader = new MultipartUploader({url: URL});
-
-  multipartItem: MultipartItem = new MultipartItem(this.uploader);
-
-  file: File;
-
-  upload : () => void;
-  uploadCallback : (data) => void;
 
   // Private properties for binding
   private sub: any;
@@ -34,61 +25,46 @@ export class PhotoAlbumDetailsComponent implements OnInit {
   private albumTitle: string;
   photos: Array<Photo[]>;
 
-  filesToUpload: Array<File>;
+  fileToUpload: File;
 
-  constructor(private userService: UserService, private route: ActivatedRoute) {
-    this.filesToUpload = [];
-
-    this.upload = () => {
-      console.debug("home.ts & upload() ==>");
-      if (null == this.file) {
-        console.error("home.ts & upload() form invalid.");
-        return;
-      }
-      if (this.multipartItem == null) {
-        this.multipartItem = new MultipartItem(this.uploader);
-      }
-      if (this.multipartItem.formData == null)
-        this.multipartItem.formData = new FormData();
-
-      this.multipartItem.formData.append("file", this.file);
-
-      this.multipartItem.callback = this.uploadCallback;
-      this.multipartItem.upload();
-    }
-
-    this.uploadCallback = (data) => {
-      console.debug("home.ts & uploadCallback() ==>");
-      this.file = null;
-      if (data){
-        console.debug("home.ts & uploadCallback() upload file success.");
-      }else{
-        console.error("home.ts & uploadCallback() upload file false.");
-      }
-    }
-  }
-
-  selectFile($event): void {
-    var inputValue = $event.target;
-    if( null == inputValue || null == inputValue.files[0]){
-      console.debug("Input file error.");
-      return;
-    }else {
-      this.file = inputValue.files[0];
-      console.debug("Input File name: " + this.file.name + " type:" + this.file.size + " size:" + this.file.size);
-    }
+  constructor(private userService: UserService, private route: ActivatedRoute, private http: Http) {
   }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.userName = params['userName']; // (+) converts string 'id' to a number
-      this.albumTitle = params['albumTitle']; // (+) converts string 'id' to a number
-
+      this.albumTitle = params['albumTitle'];
       // In a real app: dispatch action to load the details here.
       this.findAllPhotosByUserNameAndPhotoAlbumTitle(this.userName, this.albumTitle);
     });
   }
 
+  upload() {
+    console.debug(this.userName)
+    this.makeFileRequest('http://localhost:8080/users/' + this.userName + '/' + this.albumTitle + '/photos/savePhotoByAlbumTitleOfUser/', this.fileToUpload).then((result) => {
+      console.log(result);
+    }, (error) => {
+      console.error(error);
+    });
+  }
+
+  selectFile($event): void {
+    var inputValue = $event.target;
+    this.fileToUpload = inputValue.files[0];
+    console.debug("Input File name: " + this.fileToUpload.name + " type:" + this.fileToUpload.size + " size:" + this.fileToUpload.size);
+  }
+
+  makeFileRequest(url: string, file: File) {
+    return new Promise((resolve, reject) => {
+
+      var formData: any = new FormData();
+      var xhr = new XMLHttpRequest();
+
+      formData.append("file", file, file.name);
+      xhr.open("POST", url, true);
+      xhr.send(formData);
+    });
+  }
 
   findAllPhotosByUserNameAndPhotoAlbumTitle(userName, albumTitle) {
     this.userService.findAllPhotosByUserNameAndPhotoAlbumTitle(userName, albumTitle).subscribe(
@@ -142,7 +118,6 @@ export class PhotoAlbumDetailsComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
   }
 
  /* upload(): void {

@@ -1,18 +1,4 @@
 <div class="jumbotron center-block">
-<form>
-  <p>{{userName}}</p>, <p>{{albumTitle}}</p>
-  <div class="form-group">
-    <label for="exampleInputFile">File input</label>
-    <input type="file" id="exampleInputFile" (change)="selectFile($event)">
-  </div>
-  <button type="submit" class="btn btn-default" (click)="upload();">Submit</button>
-</form>
-</div>
-
-
-
-
-<div class="jumbotron center-block">
   <h3>Photos in photoAlbum: "{{albumTitle}}"</h3>
   <div class="row">
     <div class="col-xs-18 col-sm-6 col-md-3" *ngFor="let photo of photos">
@@ -31,18 +17,28 @@
     </div>
   </div>
 </div>
+<!--
+<div class="jumbotron center-block">
+  <h3>Save a new photo in photoalbum: "{{albumTitle}}"</h3>
+  <input type="file" (change)="selectFile($event)" placeholder="Upload file..." />
+  <!--<input id="input-2" name="input2[]" type="file" class="file" multiple data-show-upload="false"
+         data-show-caption="true">-->
+ <!--<div>
+    <button class="btn btn-default btn-xs" (click)="upload()">Upload</button>
+ </div>
+</div>-->
 
 <div class="jumbotron center-block">
   <h3>Save a new photo in photoalbum: "{{albumTitle}}"</h3>
-  <p>(title is primary key, can't change, no update, only create and delete)</p>
-  <br>
-  <label class="control-label">Select File</label>
-  <input id="input-2" name="input2[]" type="file" class="file" multiple data-show-upload="false"
-         data-show-caption="true">
-  <br>
-  <div class="form-group">
-    <input type="text" class="form-control" [(ngModel)]="title" placeholder="title">
-  </div>
-    <button class="btn btn-default btn-xs" (click)="createPhotoByAlbumTitleOfUser(userName, albumTitle, title)">Save</button>
+<div style="position:relative;">
+  <a class='btn btn-primary' href='javascript:;'>
+    Choose File...
+    <input type="file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file_source" size="20" (change)="selectFile($event)" onchange='$("#upload-file-info").html($(this).val());'>
+  </a>
+  &nbsp;
+  <span class='label label-info' id="upload-file-info"></span>
 </div>
-
+  <div>
+    <button class="btn btn-default btn-xs" (click)="upload()">Upload</button>
+  </div>
+</div>
