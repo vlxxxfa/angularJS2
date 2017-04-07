@@ -110,4 +110,19 @@ export class UserService {
     return this.http.post(this.baseUrl + userName + '/' + albumTitle + '/photos/' + 'deletePhotoByUserNameAndPhotoAlbumTitle', bodyString, options) // ...using post request
 
   }
+
+  upload(fileToUpload: any) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json; multipart/form-data; application/x-www-form-urlencoded; boundary=----WebKitFormBoundary0ae4CymwYLjdqdI1');
+
+    alert(headers.get('Content-Type'));
+
+    let options = new RequestOptions({headers: headers});
+
+    let input = new FormData();
+    input.append("file", fileToUpload);
+    return this.http.post('http://localhost:8080/uploadFile', input, options)
+   //return this.http.post(this.baseUrl + '' + 'admin/'  + 'newAlbum/photos/createPhotoByAlbumTitleOfUser/', input, options)
+      .map((res: Response) => res.json());
+  }
 }
