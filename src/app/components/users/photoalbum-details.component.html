@@ -1,34 +1,37 @@
 <div class="jumbotron center-block">
   <h3>Photos in photoAlbum: "{{albumTitle}}"</h3>
   <div class="row">
+    <!--<div class="col-xs-18 col-sm-6 col-md-3" *ngFor="let photo of photosAsMultipartFiles">-->
     <div class="col-xs-18 col-sm-6 col-md-3" *ngFor="let photo of photos">
-      <div class="thumbnail">
-        <img src="http://placehold.it/500x250/EEE">
+    <div class="thumbnail">
+
+      <img src='data:image/jpeg;base64,{{photo}}' align="center"/>
         <div class="caption">
           <p>
-          {{photo.title}}
           </p>
-          <p>Description to photo</p>
-          <button class="btn btn-default btn-xs" (click)="deletePhotoByUserNameAndPhotoAlbumTitle(userName, albumTitle, photo.title)">
-            Delete
-          </button>
-        </div>
+          <!--       <p>Description to photo</p>
+               <button class="btn btn-default btn-xs" (click)="deletePhotoByUserNameAndPhotoAlbumTitle(userName, albumTitle, photo.title)">
+                  Delete
+                </button>
+                <img src="data:image/jpg;base64,{{myObj.base64EncodedImage}}" />
+              -->
       </div>
+    </div>
     </div>
   </div>
 </div>
-<!--
+
 <div class="jumbotron center-block">
   <h3>Save a new photo in photoalbum: "{{albumTitle}}"</h3>
   <input type="file" (change)="selectFile($event)" placeholder="Upload file..." />
   <!--<input id="input-2" name="input2[]" type="file" class="file" multiple data-show-upload="false"
          data-show-caption="true">-->
- <!--<div>
+ <div>
     <button class="btn btn-default btn-xs" (click)="upload()">Upload</button>
  </div>
-</div>-->
+</div>
 
-<div class="jumbotron center-block">
+<!--<div class="jumbotron center-block">
   <h3>Save a new photo in photoalbum: "{{albumTitle}}"</h3>
 <div style="position:relative;">
   <a class='btn btn-primary' href='javascript:;'>
@@ -41,4 +44,4 @@
   <div>
     <button class="btn btn-default btn-xs" (click)="upload()">Upload</button>
   </div>
-</div>
+</div>-->

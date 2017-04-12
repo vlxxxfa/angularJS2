@@ -1,16 +1,15 @@
 // Imports
-import { Injectable }    from '@angular/core';
-import {Http, Response, Headers, RequestOptions} from "@angular/http";
+import {Injectable}    from '@angular/core';
+import {Http, Response, Headers, RequestOptions, ResponseContentType} from "@angular/http";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {User} from "../models/user";
 import {map} from "rxjs/operator/map";
+import {Observable} from "rxjs";
 
 // Decorator to tell Angular that this class can be injected as a service to another class
 @Injectable()
 export class UserService {
-
-  private user: User;
 
   constructor(private http: Http) {
   }
@@ -69,7 +68,7 @@ export class UserService {
     // .catch(error => Observable.throw(error.json().error || 'Server error')));
   }
 
- // Add a new photoAlbum to exist user
+  // Add a new photoAlbum to exist user
   createPhotoAlbumByUser(userName, photoAlbum) {
     let bodyString = JSON.stringify(photoAlbum); // Stringify payload
     console.log(bodyString);
@@ -79,31 +78,49 @@ export class UserService {
       .map((res: Response) => res.json()); // ...and calling .json() on the response to return data
   }
 
-  findAllPhotosByUserNameAndPhotoAlbumTitle(userName, albumTitle) {
+  deletePhotoAlbumByUser(userName, albumTitle) {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
+    return this.http.post(this.baseUrl + userName + '/photoAlben/' + 'deletePhotoAlbumByUserName/' + albumTitle, options) // ...using post request
+  }
+
+  fileToUpload(userName, albumTitle, file: File) {
+
+    return Observable.fromPromise(new Promise((resolve, reject) => {
+
+      var url = this.baseUrl + userName + '/' + albumTitle + '/photos/savePhotoByAlbumTitleOfUser/'
+
+      var formData: any = new FormData();
+      formData.append("file", file, file.name);
+
+      var xhr = new XMLHttpRequest();
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            resolve(JSON.parse(xhr.response))
+          } else {
+            reject(xhr.response)
+          }
+        }
+      }
+      xhr.open("POST", url, true);
+      xhr.send(formData);
+    }));
+  }
+
+  findAllPhotosByUserNameAndPhotoAlbumTitle(userName, albumTitle) {
+
+    // let headers = new Headers({'Content-Type': 'application/json'});
+    // let options = new RequestOptions({headers: headers});
     // Return response
     return this.http.get(this.baseUrl + userName + '/' + albumTitle + '/photos/findAllPhotosByUserNameAndPhotoAlbumTitle')
-      .map(response => response.json());
+    .map(res => res.json())
+    //  .map(response => response.json());
     // .catch(error => Observable.throw(error.json().error || 'Server error')));
   }
 
-  createPhotoByAlbumTitleOfUser(userName, albumTitle, photo) {
-    let bodyString = JSON.stringify(photo); // Stringify payload
-    console.log(bodyString);
-    let headers = new Headers({'Content-Type': 'application/json'});
-    let options = new RequestOptions({headers: headers});
-    return this.http.post(this.baseUrl + userName + '/' + albumTitle+ '/photos/createPhotoByAlbumTitleOfUser', bodyString, options) // ...using post request
-      .map((res: Response) => res.json()); // ...and calling .json() on the response to return data
-  }
-
-  deletePhotoAlbumByUser(userName, albumTitle){
-    let headers = new Headers({'Content-Type': 'application/json'});
-    let options = new RequestOptions({headers: headers});
-    return this.http.post(this.baseUrl + userName + '/photoAlben/' + 'deletePhotoAlbumByUserName/'+ albumTitle, options) // ...using post request
-  }
-
-  deletePhotoByUserNameAndPhotoAlbumTitle(userName, albumTitle, photo){
+  deletePhotoByUserNameAndPhotoAlbumTitle(userName, albumTitle, photo) {
     let bodyString = JSON.stringify(photo); // Stringify payload
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
@@ -111,18 +128,16 @@ export class UserService {
 
   }
 
-  upload(fileToUpload: any) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json; multipart/form-data; application/x-www-form-urlencoded; boundary=----WebKitFormBoundary0ae4CymwYLjdqdI1');
 
-    alert(headers.get('Content-Type'));
+  /*
+   createPhotoByAlbumTitleOfUser(userName, albumTitle, photo) {
+   let bodyString = JSON.stringify(photo); // Stringify payload
+   console.log(bodyString);
+   let headers = new Headers({'Content-Type': 'application/json'});
+   let options = new RequestOptions({headers: headers});
+   return this.http.post(this.baseUrl + userName + '/' + albumTitle+ '/photos/createPhotoByAlbumTitleOfUser', bodyString, options) // ...using post request
+   .map((res: Response) => res.json()); // ...and calling .json() on the response to return data
+   }
+   */
 
-    let options = new RequestOptions({headers: headers});
-
-    let input = new FormData();
-    input.append("file", fileToUpload);
-    return this.http.post('http://localhost:8080/uploadFile', input, options)
-   //return this.http.post(this.baseUrl + '' + 'admin/'  + 'newAlbum/photos/createPhotoByAlbumTitleOfUser/', input, options)
-      .map((res: Response) => res.json());
-  }
 }

@@ -1,4 +1,4 @@
 export class Photo {
-  title: string;
-  file: any;
+  public title: string = "";
+  public base64: string = '';
 }

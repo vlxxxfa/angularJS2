@@ -63,19 +63,6 @@ export class UserDetailsComponent implements OnInit {
     );
   }
 
-  findAllPhotosByUserNameAndPhotoAlbumTitle(userName, albumTitle) {
-    this.userService.findAllPhotosByUserNameAndPhotoAlbumTitle(userName, albumTitle).subscribe(
-      // the first argument is a function which runs on success
-      data => {
-        this.photos = data
-      },
-      // the second argument is a function which runs on error
-      err => console.error(err),
-      // the third argument is a function which runs on completion
-      () => console.log('done loading photos of album')
-    );
-  }
-
   deletePhotoAlbumByUser(userName, albumTitle){
     if (confirm("Are you sure you want to delete " + albumTitle + "?")) {
       this.userService.deletePhotoAlbumByUser(userName, albumTitle).subscribe(
@@ -96,4 +83,17 @@ export class UserDetailsComponent implements OnInit {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+
+  /*findAllPhotosByUserNameAndPhotoAlbumTitle(userName, albumTitle) {
+   this.userService.findAllPhotosByUserNameAndPhotoAlbumTitle(userName, albumTitle).subscribe(
+   // the first argument is a function which runs on success
+   data => {
+   this.photos = data
+   },
+   // the second argument is a function which runs on error
+   err => console.error(err),
+   // the third argument is a function which runs on completion
+   () => console.log('done loading photos of album')
+   );
+   }*/
 }

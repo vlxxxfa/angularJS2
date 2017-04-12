@@ -1,15 +1,10 @@
 // Imports
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, Renderer, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Http, Response, Headers, RequestOptions} from "@angular/http";
+import {Http} from "@angular/http";
 import {UserService} from "../../services/user.service";
 import {Observable} from "rxjs";
 import {Photo} from "../../models/photo";
-import {MultipartUploader} from "../../plugins/multipart-upload/multipart-uploader";
-import {MultipartItem} from "../../plugins/multipart-upload/multipart-item";
-
-// const URL = 'http://localhost:8080/uploadFile';
-const URL = 'http://localhost:8080/users/' + this.userName + '/' + this.albumTitle + '/photos/createPhotoByAlbumTitleOfUser/';
 
 @Component({
   templateUrl: './photoalbum-details.component.html',
@@ -17,35 +12,41 @@ const URL = 'http://localhost:8080/users/' + this.userName + '/' + this.albumTit
   // Providers
   providers: [UserService]
 })
+
 export class PhotoAlbumDetailsComponent implements OnInit {
 
   // Private properties for binding
   private sub: any;
   private userName: string;
   private albumTitle: string;
-  photos: Array<Photo[]>;
+  private fileToUpload: File;
+  private photos;
+ // private photos:Photo = [];
 
-  fileToUpload: File;
-
-  constructor(private userService: UserService, private route: ActivatedRoute, private http: Http) {
+  constructor(private userService: UserService, private route: ActivatedRoute) {
+   // this.photos = new Array<Photo>();
+    this.photos = [];
   }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.userName = params['userName']; // (+) converts string 'id' to a number
       this.albumTitle = params['albumTitle'];
-      // In a real app: dispatch action to load the details here.
       this.findAllPhotosByUserNameAndPhotoAlbumTitle(this.userName, this.albumTitle);
     });
   }
 
   upload() {
     console.debug(this.userName)
-    this.makeFileRequest('http://localhost:8080/users/' + this.userName + '/' + this.albumTitle + '/photos/savePhotoByAlbumTitleOfUser/', this.fileToUpload).then((result) => {
-      console.log(result);
-    }, (error) => {
-      console.error(error);
-    });
+    this.userService.fileToUpload(this.userName, this.albumTitle, this.fileToUpload)
+      .subscribe(
+        res => {
+          console.log(res);
+          this.findAllPhotosByUserNameAndPhotoAlbumTitle(this.userName, this.albumTitle);
+        },
+        error => {
+          console.log(error);
+        })
   }
 
   selectFile($event): void {
@@ -54,23 +55,52 @@ export class PhotoAlbumDetailsComponent implements OnInit {
     console.debug("Input File name: " + this.fileToUpload.name + " type:" + this.fileToUpload.size + " size:" + this.fileToUpload.size);
   }
 
-  makeFileRequest(url: string, file: File) {
-    return new Promise((resolve, reject) => {
+  convertByteArrayToBase64(json_probably) {
+    var a = 0;
 
-      var formData: any = new FormData();
-      var xhr = new XMLHttpRequest();
+    this.photos = [];
 
-      formData.append("file", file, file.name);
-      xhr.open("POST", url, true);
-      xhr.send(formData);
-    });
-  }
+    for (let i in json_probably) {
+
+    //  this.photos.push(btoa(json_probably[i]));
+      this.photos.push(json_probably[i]);
+     //alert(json_probably[i])
+    //  alert(i)
+      a++;
+    }
+
+    for (let i in this.photos){
+   //  alert( this.photos[i])
+    }
+  //  console.log(btoa(json_probably[1]))
+    console.log("Array list: " + this.photos.length)
+
+    console.log(a);
+   }
+/*
+  convertByteArrayToBase64(json_probably) {
+    var a = 0;
+
+    for (let i in json_probably) {
+
+      for (let photoElementInArray in this.photos) {
+        this.photos[photoElementInArray].base64 = btoa(json_probably[i]);
+        this.photos.push(this.photos[photoElementInArray]);
+      }
+      a++;
+    }
+    console.log("Array list: " + this.photos.length)
+    console.log(a);
+  }*/
 
   findAllPhotosByUserNameAndPhotoAlbumTitle(userName, albumTitle) {
     this.userService.findAllPhotosByUserNameAndPhotoAlbumTitle(userName, albumTitle).subscribe(
       // the first argument is a function which runs on success
-      data => {
-        this.photos = data
+      res => {
+        for (let i in res){
+        //  alert(res[i])
+        }
+        this.convertByteArrayToBase64(res);
       },
       // the second argument is a function which runs on error
       err => console.error(err),
@@ -79,25 +109,26 @@ export class PhotoAlbumDetailsComponent implements OnInit {
     );
   }
 
-  createPhotoByAlbumTitleOfUser(userName, albumTitle, title) {
-    let photo = {
-      title: title
-    };
-    this.userService.createPhotoByAlbumTitleOfUser(userName, albumTitle, photo).subscribe(
-      data => {
-        //   console.log(data)
-        // refresh the list
-        this.findAllPhotosByUserNameAndPhotoAlbumTitle(userName, albumTitle);
-        return true;
-      },
-      error => {
-        console.error("Error create a new User!");
-        return Observable.throw(error);
-      }
-    );
-  }
+  /*
+   createPhotoByAlbumTitleOfUser(userName, albumTitle, title) {
+   let photo = {
+   title: title
+   };
+   this.userService.createPhotoByAlbumTitleOfUser(userName, albumTitle, photo).subscribe(
+   data => {
+   //   console.log(data)
+   // refresh the list
+   this.findAllPhotosByUserNameAndPhotoAlbumTitle(userName, albumTitle);
+   return true;
+   },
+   error => {
+   console.error("Error create a new User!");
+   return Observable.throw(error);
+   }
+   );
+   }*/
 
-  deletePhotoByUserNameAndPhotoAlbumTitle(userName, albumTitle, title){
+  deletePhotoByUserNameAndPhotoAlbumTitle(userName, albumTitle, title) {
     if (confirm("Are you sure you want to delete " + title + "?")) {
       let photo = {
         title: title
@@ -120,18 +151,18 @@ export class PhotoAlbumDetailsComponent implements OnInit {
   ngOnDestroy() {
   }
 
- /* upload(): void {
-    console.log('image uploaded');
-    let fi = this.fileInput.nativeElement;
-    if (fi.files && fi.files[0]) {
-      let fileToUpload = fi.files[0];
-      this.userService
-        .upload(fileToUpload)
-        .subscribe(res => {
-          console.log(res);
-        });
-    }
-  }*/
+  /* upload(): void {
+   console.log('image uploaded');
+   let fi = this.fileInput.nativeElement;
+   if (fi.files && fi.files[0]) {
+   let fileToUpload = fi.files[0];
+   this.userService
+   .upload(fileToUpload)
+   .subscribe(res => {
+   console.log(res);
+   });
+   }
+   }*/
 
 
 }
