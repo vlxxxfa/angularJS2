@@ -1,4 +1,5 @@
 export class Photo {
-  public title: string = "";
+  public id: string = '';
+  public title: string = '';
   public base64: string = '';
 }

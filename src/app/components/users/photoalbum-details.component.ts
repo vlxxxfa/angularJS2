@@ -20,12 +20,10 @@ export class PhotoAlbumDetailsComponent implements OnInit {
   private userName: string;
   private albumTitle: string;
   private fileToUpload: File;
-  private photos;
+  private photos: Array<Photo[]>;
  // private photos:Photo = [];
 
   constructor(private userService: UserService, private route: ActivatedRoute) {
-   // this.photos = new Array<Photo>();
-    this.photos = [];
   }
 
   ngOnInit() {
@@ -55,52 +53,28 @@ export class PhotoAlbumDetailsComponent implements OnInit {
     console.debug("Input File name: " + this.fileToUpload.name + " type:" + this.fileToUpload.size + " size:" + this.fileToUpload.size);
   }
 
-  convertByteArrayToBase64(json_probably) {
+  /*convertByteArrayToBase64(json_probably) {
     var a = 0;
 
     this.photos = [];
 
     for (let i in json_probably) {
-
-    //  this.photos.push(btoa(json_probably[i]));
-      this.photos.push(json_probably[i]);
-     //alert(json_probably[i])
-    //  alert(i)
+      let photo: Photo = {
+        title : "",
+        base64 : json_probably[i]
+      };
+       this.photos.push(photo);
+    //  this.photos[i].base64.push(json_probably[i]);
       a++;
     }
-
-    for (let i in this.photos){
-   //  alert( this.photos[i])
-    }
-  //  console.log(btoa(json_probably[1]))
-    console.log("Array list: " + this.photos.length)
-
-    console.log(a);
-   }
-/*
-  convertByteArrayToBase64(json_probably) {
-    var a = 0;
-
-    for (let i in json_probably) {
-
-      for (let photoElementInArray in this.photos) {
-        this.photos[photoElementInArray].base64 = btoa(json_probably[i]);
-        this.photos.push(this.photos[photoElementInArray]);
-      }
-      a++;
-    }
-    console.log("Array list: " + this.photos.length)
-    console.log(a);
-  }*/
+    console.log(a)
+   }*/
 
   findAllPhotosByUserNameAndPhotoAlbumTitle(userName, albumTitle) {
     this.userService.findAllPhotosByUserNameAndPhotoAlbumTitle(userName, albumTitle).subscribe(
       // the first argument is a function which runs on success
       res => {
-        for (let i in res){
-        //  alert(res[i])
-        }
-        this.convertByteArrayToBase64(res);
+        this.photos = res;
       },
       // the second argument is a function which runs on error
       err => console.error(err),
@@ -128,12 +102,9 @@ export class PhotoAlbumDetailsComponent implements OnInit {
    );
    }*/
 
-  deletePhotoByUserNameAndPhotoAlbumTitle(userName, albumTitle, title) {
-    if (confirm("Are you sure you want to delete " + title + "?")) {
-      let photo = {
-        title: title
-      };
-      this.userService.deletePhotoByUserNameAndPhotoAlbumTitle(userName, albumTitle, photo).subscribe(
+  deletePhotoByUserNameAndPhotoAlbumTitle(userName, albumTitle, id, photoTitle) {
+    if (confirm("Are you sure you want to delete " + photoTitle + "?")) {
+      this.userService.deletePhotoByUserNameAndPhotoAlbumTitle(userName, albumTitle, id).subscribe(
         data => {
           //   console.log(data)
           // refresh the list

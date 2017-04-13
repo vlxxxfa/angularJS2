@@ -120,11 +120,10 @@ export class UserService {
     // .catch(error => Observable.throw(error.json().error || 'Server error')));
   }
 
-  deletePhotoByUserNameAndPhotoAlbumTitle(userName, albumTitle, photo) {
-    let bodyString = JSON.stringify(photo); // Stringify payload
+  deletePhotoByUserNameAndPhotoAlbumTitle(userName, albumTitle, id) {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
-    return this.http.post(this.baseUrl + userName + '/' + albumTitle + '/photos/' + 'deletePhotoByUserNameAndPhotoAlbumTitle', bodyString, options) // ...using post request
+    return this.http.post(this.baseUrl + userName + '/' + albumTitle + '/photos/' + 'deletePhotoByUserNameAndPhotoAlbumTitle/' + id, options) // ...using post request
 
   }
 
