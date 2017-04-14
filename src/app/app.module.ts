@@ -10,9 +10,13 @@ import {UserService} from "./services/user.service";
 import {PhotoAlbumDetailsComponent} from "./components/users/photoalbum-details.component";
 import {LoginComponent} from "./components/login/login.component";
 import {RegisterComponent} from "./components/register/register.component";
+import {BsDropdownModule, CarouselModule, TabsModule} from "ngx-bootstrap";
 
 @NgModule({
   imports: [
+    BsDropdownModule.forRoot(),
+    TabsModule.forRoot(),
+    CarouselModule.forRoot(),
     BrowserModule,
     FormsModule,
     HttpModule,
