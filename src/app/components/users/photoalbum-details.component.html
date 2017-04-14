@@ -1,50 +1,39 @@
-<div class="jumbotron center-block">
-  <h3>Photos in photoAlbum: "{{albumTitle}}"</h3>
-  <div class="row">
-    <!--<div class="col-xs-18 col-sm-6 col-md-3" *ngFor="let photo of photosAsMultipartFiles">-->
-    <div class="col-xs-18 col-sm-6 col-md-3" *ngFor="let photo of photos">
-    <div class="thumbnail">
-<p>{{photo.title}}</p>
-      <img src='data:image/jpeg;base64,{{photo.base64}}' align="center"/>
-        <div class="caption">
-          <p>
-          </p>
-          <!--       <p>Description to photo</p>
-               <button class="btn btn-default btn-xs" (click)="deletePhotoByUserNameAndPhotoAlbumTitle(userName, albumTitle, photo.title)">
-                  Delete
-                </button>
-                <img src="data:image/jpg;base64,{{myObj.base64EncodedImage}}" />
-              -->
-          <button class="btn btn-default btn-xs" (click)="deletePhotoByUserNameAndPhotoAlbumTitle(userName, albumTitle, photo.id, photo.title)">
-            Delete
-          </button>
+<div class="row">
+  <div class="col-md-12">
+
+
+    <div class="col-md-4">
+      <div class="jumbotron center-block">
+        <h3>Save a new photo in photoalbum: "{{albumTitle}}"</h3>
+        <input type="file" (change)="selectFile($event)" placeholder="Upload file..."/>
+        <!--<input id="input-2" name="input2[]" type="file" class="file" multiple data-show-upload="false"
+               data-show-caption="true">-->
+        <div>
+          <button class="btn btn-default btn-xs" (click)="upload()">Upload</button>
+        </div>
       </div>
     </div>
+    <div class="col-md-8">
+      <div class="jumbotron center-block">
+        <h3>Photos in photoAlbum: "{{albumTitle}}"</h3>
+        <div class="row">
+          <!--<div class="col-xs-18 col-sm-6 col-md-3" *ngFor="let photo of photosAsMultipartFiles">-->
+          <div class="col-xs-18 col-sm-6 col-md-3" *ngFor="let photo of photos">
+            <div class="thumbnail">
+              <p>{{photo.title}}</p>
+              <img src='data:image/jpeg;base64,{{photo.base64}}' align="center"/>
+              <div class="caption">
+                <p>
+                </p>
+                <button class="btn btn-default btn-xs"
+                        (click)="deletePhotoByUserNameAndPhotoAlbumTitle(userName, albumTitle, photo.id, photo.title)">
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
-<div class="jumbotron center-block">
-  <h3>Save a new photo in photoalbum: "{{albumTitle}}"</h3>
-  <input type="file" (change)="selectFile($event)" placeholder="Upload file..." />
-  <!--<input id="input-2" name="input2[]" type="file" class="file" multiple data-show-upload="false"
-         data-show-caption="true">-->
- <div>
-    <button class="btn btn-default btn-xs" (click)="upload()">Upload</button>
- </div>
-</div>
-
-<!--<div class="jumbotron center-block">
-  <h3>Save a new photo in photoalbum: "{{albumTitle}}"</h3>
-<div style="position:relative;">
-  <a class='btn btn-primary' href='javascript:;'>
-    Choose File...
-    <input type="file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file_source" size="20" (change)="selectFile($event)" onchange='$("#upload-file-info").html($(this).val());'>
-  </a>
-  &nbsp;
-  <span class='label label-info' id="upload-file-info"></span>
-</div>
-  <div>
-    <button class="btn btn-default btn-xs" (click)="upload()">Upload</button>
-  </div>
-</div>-->

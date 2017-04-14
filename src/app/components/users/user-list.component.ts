@@ -6,7 +6,7 @@ import {UserService} from "../../services/user.service";
 
 @Component({
   templateUrl: './user-list.component.html',
-  styleUrls: ['../../styles.css'],
+  styleUrls: ['./user-list.component.css', '../../styles.css'],
   // Providers
   providers: [UserService]
 })

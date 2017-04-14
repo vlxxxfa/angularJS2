@@ -1,29 +1,40 @@
-<div class="jumbotron center-block">
-  <h3>List of photoalben by User: "{{userName}}"</h3>
-  <div class="row">
-    <div class="col-xs-18 col-sm-6 col-md-3" *ngFor="let photoalbum of photoalben">
-      <div class="thumbnail">
-        <img src="http://placehold.it/500x250/EEE">
-        <div class="caption">
-          <a [routerLink]="['/photoalbum-details', userName, photoalbum.albumTitle]"><p>{{photoalbum.albumTitle}}</p>
-          </a>
-          <p>Description to album</p>
-          <button class="btn btn-default btn-xs" (click)="deletePhotoAlbumByUser(userName, photoalbum.albumTitle)">
-            Delete
-          </button>
+<div class="row">
+  <div class="col-md-12">
+    <div class="col-md-4">
+      <div class="jumbotron center-block">
+        <h3>Create a new photoalbum</h3>
+        <p>(albumTitle is primary key, can't change, no update, only create and delete)</p>
+        <div class="form-group">
+          <input type="text" class="form-control" [(ngModel)]="albumTitle" placeholder="albumTitle">
+        </div>
+        <button class="btn btn-default btn-xs" (click)="createPhotoAlbumByUser(userName, albumTitle)">Create</button>
+      </div>
+    </div>
+
+
+    <div class="col-md-8">
+      <div class="jumbotron center-block">
+        <h3>List of photoalben by User: "{{userName}}"</h3>
+        <div class="row">
+          <div class="col-xs-18 col-sm-6 col-md-3" *ngFor="let photoalbum of photoalben">
+            <div class="thumbnail">
+              <div class="caption">
+                <a [routerLink]="['/photoalbum-details', userName, photoalbum.albumTitle]"><p>
+                  {{photoalbum.albumTitle}}</p>
+                </a>
+                <p>Description to album</p>
+                <button class="btn btn-default btn-xs"
+                        (click)="deletePhotoAlbumByUser(userName, photoalbum.albumTitle)">
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
 
-<div class="jumbotron center-block">
-  <h3>Create a new photoalbum</h3>
-  <p>(albumTitle is primary key, can't change, no update, only create and delete)</p>
-  <div class="form-group">
-    <input type="text" class="form-control" [(ngModel)]="albumTitle" placeholder="albumTitle">
   </div>
-  <button class="btn btn-default btn-xs" (click)="createPhotoAlbumByUser(userName, albumTitle)">Create</button>
 </div>
 

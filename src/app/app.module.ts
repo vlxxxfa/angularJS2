@@ -14,6 +14,7 @@ import {BsDropdownModule, CarouselModule, TabsModule} from "ngx-bootstrap";
 
 @NgModule({
   imports: [
+ //   NavbarModule.forRoot(),
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     CarouselModule.forRoot(),
