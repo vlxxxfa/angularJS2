@@ -1,0 +1,37 @@
+<nav class="navbar navbar-default">
+  <!--<nav class="navbar navbar-inverse navbar-fixed-top">-->
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed"
+              (click)="toggleState()">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button> <!-- #1 -->
+      <a class="navbar-brand" [routerLink]="['/login']"><i
+        class="glyphicon glyphicon-camera"></i> Vl Fa</a>
+    </div>
+    <div class="collapse navbar-collapse"
+         [ngClass]="{ 'in': isIn }">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a class="mdl-navigation__link" [routerLink]="['/']">Home</a>
+        </li>
+        <li>
+          <a class="mdl-navigation__link" [routerLink]="['/users']">Admin</a>
+        </li>
+        <li>
+          <a class="mdl-navigation__link disabled" [routerLink]="['/login']">User</a>
+        </li>
+        <li>
+          <a class="mdl-navigation__link" [routerLink]="['/register']"><span class="glyphicon glyphicon-user"></span> Register</a>
+        </li>
+        <li>
+          <!--    <a class="mdl-navigation__link" [routerLink]="['/login']">Login</a>-->
+          <a class="mdl-navigation__link" [routerLink]="['/login']"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+        </li>
+      </ul>
+    </div> <!-- #2 -->
+  </div>
+</nav>

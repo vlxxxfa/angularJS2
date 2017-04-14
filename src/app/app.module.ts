@@ -11,6 +11,7 @@ import {PhotoAlbumDetailsComponent} from "./components/users/photoalbum-details.
 import {LoginComponent} from "./components/login/login.component";
 import {RegisterComponent} from "./components/register/register.component";
 import {BsDropdownModule, CarouselModule, TabsModule} from "ngx-bootstrap";
+import {NavbarComponent} from "./core/navbar.component";
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import {BsDropdownModule, CarouselModule, TabsModule} from "ngx-bootstrap";
     UserDetailsComponent,
     PhotoAlbumDetailsComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    NavbarComponent
   ],
   providers: [
     UserService
