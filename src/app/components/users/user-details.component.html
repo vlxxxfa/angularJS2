@@ -1,40 +1,81 @@
 <div class="row">
   <div class="col-md-12">
-    <div class="col-md-4">
+
+    <div #input [hidden]="!myApp.isVisible" focusOnInit>
       <div class="jumbotron center-block">
         <h3>Create a new photoalbum</h3>
         <p>(albumTitle is primary key, can't change, no update, only create and delete)</p>
         <div class="form-group">
-          <input type="text" class="form-control" [(ngModel)]="albumTitle" placeholder="albumTitle">
+          <input type="text" class="form-control" [(ngModel)]="albumTitle" placeholder="albumtitle">
         </div>
-        <button class="btn btn-default btn-xs" (click)="createPhotoAlbumByUser(userName, albumTitle)">Create</button>
+        <div class="form-group">
+          <input type="text" class="form-control" [(ngModel)]="description" placeholder="description">
+        </div>
+        <div>
+          <a class="btn icon-btn btn-default" (click)="myApp.cancel()" (click)="myApp.appearInput(false)" [hidden]="!myApp.isVisible">
+            <span class="glyphicon btn-glyphicon glyphicon-arrow-left img-circle text-muted"></span> <!-- defining icon -->
+            Back <!-- defining text -->
+          </a>
+
+          <a class="btn icon-btn btn-success" (click)="createPhotoAlbumByUser(userName, albumTitle)" (click)="myApp.appearInput(false)" [hidden]="!myApp.isVisible">
+            <span class="glyphicon btn-glyphicon  img-circle text-success glyphicon glyphicon-ok"></span>
+            Create
+          </a>
+        </div>
       </div>
     </div>
-
-
-    <div class="col-md-8">
+    <div class="row">
+    <div class="col-md-12">
       <div class="jumbotron center-block">
-        <h3>List of photoalben by User: "{{userName}}"</h3>
         <div class="row">
-          <div class="col-xs-18 col-sm-6 col-md-3" *ngFor="let photoalbum of photoalben">
-            <div class="thumbnail">
-              <div class="caption">
-                <a [routerLink]="['/photoalbum-details', userName, photoalbum.albumTitle]"><p>
-                  {{photoalbum.albumTitle}}</p>
-                </a>
-                <p>Description to album</p>
-                <button class="btn btn-default btn-xs"
-                        (click)="deletePhotoAlbumByUser(userName, photoalbum.albumTitle)">
-                  Delete
-                </button>
-              </div>
-            </div>
+
+          <div id="block_container" class="form-group">
+
+            <p id="bloc1">List of photoalben by: "{{userName}}"</p>
+            <a id="bloc2" (click)="myApp.cancel()" (click)="myApp.appearInput(false)" [hidden]="!myApp.isVisible">
+              <span class="glyphicon btn-glyphicon glyphicon-arrow-left img-circle text-muted"></span> <!-- defining icon -->
+            </a>
+            <a id="bloc3" (click)="myApp.appearInput()" [hidden]="myApp.isVisible" class="btn icon-btn">
+              <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
+            </a>
+
           </div>
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Description to album</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let photoalbum of photoalben; let i=index">
+              <th scope="row">{{i + 1}}</th>
+              <td><a
+                [routerLink]="['/photoalbum-details', userName, photoalbum.albumTitle]">{{photoalbum.albumTitle}}</a>
+              </td>
+              <td>Description</td>
+              <div class="btn-group" role="group" aria-label="...">
+                <td>
+                  <a class="btn icon-btn btn-warning">
+                    <span class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-danger"></span>
+                    Edit
+                  </a>
+                  <a class="btn icon-btn btn-danger" (click)="deletePhotoAlbumByUser(userName, photoalbum.albumTitle)">
+                    <span class="glyphicon btn-glyphicon glyphicon-trash img-circle text-danger"></span>
+                    Delete
+                  </a>
+
+
+                </td>
+              </div>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
-
-
   </div>
 </div>
 

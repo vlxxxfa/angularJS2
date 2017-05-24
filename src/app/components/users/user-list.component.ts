@@ -1,8 +1,9 @@
 // Imports
-import {Component, OnInit} from '@angular/core';
+import {Component, Host, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {User} from "../../models/user";
 import {UserService} from "../../services/user.service";
+import {AppComponent} from "../../app.component";
 
 @Component({
   templateUrl: './user-list.component.html',
@@ -15,9 +16,11 @@ export class UserListComponent implements OnInit {
   // Private property for binding
   users: Array<User[]>;
   private user: Observable<User[]>;
+  private myApp;
 
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, @Host() myApp: AppComponent) {
+    this.myApp = myApp;
   }
 
   // Load data ones component is ready

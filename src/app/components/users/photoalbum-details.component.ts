@@ -1,10 +1,11 @@
 // Imports
-import {Component, OnInit, Renderer, ViewChild} from '@angular/core';
+import {Component, Host, Input, OnInit, Output, Renderer, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Http} from "@angular/http";
 import {UserService} from "../../services/user.service";
 import {Observable} from "rxjs";
 import {Photo} from "../../models/photo";
+import {AppComponent} from "../../app.component";
 
 @Component({
   templateUrl: './photoalbum-details.component.html',
@@ -14,16 +15,16 @@ import {Photo} from "../../models/photo";
 })
 
 export class PhotoAlbumDetailsComponent implements OnInit {
-
   // Private properties for binding
   private sub: any;
   private userName: string;
   private albumTitle: string;
   private fileToUpload: File;
   private photos: Array<Photo[]>;
- // private photos:Photo = [];
+  private myApp;
 
-  constructor(private userService: UserService, private route: ActivatedRoute) {
+  constructor(private userService: UserService, private route: ActivatedRoute, @Host() myApp: AppComponent ) {
+    this.myApp = myApp;
   }
 
   ngOnInit() {

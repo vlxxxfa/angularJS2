@@ -1,6 +1,7 @@
 <div class="row">
   <div class="col-md-12">
-    <div class="col-md-4">
+
+    <div #input [hidden]="!myApp.isVisible" focusOnInit>
       <div class="jumbotron center-block">
         <h3>Create/Update a new user</h3>
         <p>(username is primary key, can't change)</p>
@@ -11,23 +12,77 @@
           <input type="text" class="form-control" [(ngModel)]="password" placeholder="password">
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" [(ngModel)]="email" placeholder="email">
+          <input type="email" class="form-control" [(ngModel)]="email" placeholder="email">
         </div>
-        <button class="btn btn-default btn-xs" (click)="createUser(username, password, email)">Create</button>
-        <button class="btn btn-default btn-xs" (click)="updateUser(username, password, email)">Update</button>
+
+        <a class="btn icon-btn btn-success" (click)="createUser(username, password, email)" (click)="myApp.appearInput(false)" [hidden]="!myApp.isVisible">
+          <span class="glyphicon btn-glyphicon  img-circle text-success glyphicon glyphicon-ok"></span>
+          Create
+        </a>
+
+        <a class="btn icon-btn btn-warning" (click)="updateUser(username, password, email)">
+          <span class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-danger"></span>
+          Edit
+        </a>
       </div>
     </div>
-    <div class="col-md-8">
+
+
+    <div class="row">
+      <div class="col-md-12">
       <div class="jumbotron center-block">
-        <h3>List of users</h3>
-        <div class="row">
-          <div class="col-xs-18 col-sm-6 col-md-4" *ngFor="let user of users">
-                  <h4>UserName: <a [routerLink]="['/user-details', user.userName]">{{user.userName}}</a></h4>
-                  <h4>Email: <a href="{{user.email}}">{{user.email}}</a></h4>
-                  <button class="btn btn-default btn-xs" (click)="deleteUser(user.userName)">Delete</button>
-          </div>
+
+        <div id="block_container" class="form-group">
+          <p id="bloc1">Registered users</p>
+
+          <a id="bloc2" (click)="myApp.cancel()" (click)="myApp.appearInput(false)" [hidden]="!myApp.isVisible">
+            <span class="glyphicon btn-glyphicon glyphicon-arrow-left img-circle text-muted"></span> <!-- defining icon -->
+          </a>
+
+          <a id="bloc3" (click)="myApp.appearInput()" [hidden]="myApp.isVisible" class="btn icon-btn">
+            <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
+          </a>
+          <a id="bloc4" (click)="myApp.appearInput()" [hidden]="myApp.isVisible" class="btn icon-btn">
+            <span class="glyphicon btn-glyphicon glyphicon-search img-circle text-muted"></span>
+          </a>
+
         </div>
+
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Username</th>
+              <th>Password</th>
+              <th>Email</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let user of users; let i = index">
+              <th scope="row">{{i + 1}}</th>
+              <td><a [routerLink]="['/user-details', user.userName]">{{user.userName}}</a></td>
+              <td>{{user.passWord}}</td>
+              <td>{{user.email}}</td>
+              <div class="btn-group" role="group" aria-label="...">
+                <td>
+
+                  <a class="btn icon-btn btn-warning">
+                    <span class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-danger"></span>
+                    Edit
+                  </a>
+                  <a class="btn icon-btn btn-danger" (click)="deleteUser(user.userName)">
+                    <span class="glyphicon btn-glyphicon glyphicon-trash img-circle text-danger"></span>
+                    Delete
+                  </a>
+                </td>
+              </div>
+            </tr>
+            </tbody>
+          </table>
       </div>
     </div>
   </div>
 </div>
+</div>
+

@@ -1,11 +1,12 @@
 // Imports
-import {Component, OnInit} from '@angular/core';
+import {Component, Host, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {UserService} from "../../services/user.service";
 import {User} from "../../models/user";
 import {Photoalbum} from "../../models/photoalbum";
 import {Observable} from "rxjs";
 import {Photo} from "../../models/photo";
+import {AppComponent} from "../../app.component";
 
 @Component({
   templateUrl: './user-details.component.html',
@@ -20,8 +21,10 @@ export class UserDetailsComponent implements OnInit {
   private userName: string;
   photoalben: Array<Photoalbum[]>;
   photos: Array<Photo[]>;
+  private myApp;
 
-  constructor(private userService: UserService, private route: ActivatedRoute) {
+  constructor(private userService: UserService, private route: ActivatedRoute, @Host() myApp: AppComponent) {
+    this.myApp = myApp;
   }
 
   ngOnInit() {

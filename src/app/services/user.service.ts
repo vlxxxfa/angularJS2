@@ -3,8 +3,6 @@ import {Injectable}    from '@angular/core';
 import {Http, Response, Headers, RequestOptions, ResponseContentType} from "@angular/http";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {User} from "../models/user";
-import {map} from "rxjs/operator/map";
 import {Observable} from "rxjs";
 
 // Decorator to tell Angular that this class can be injected as a service to another class
