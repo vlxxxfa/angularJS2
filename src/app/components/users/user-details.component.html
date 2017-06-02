@@ -31,7 +31,7 @@
 
           <div id="block_container" class="form-group">
 
-            <p id="bloc1">List of photoalben by: "{{userName}}"</p>
+            <p id="bloc1">List of photoalben by: "{{userName | uppercase}}"</p>
             <a id="bloc2" (click)="myApp.cancel()" (click)="myApp.appearInput(false)" [hidden]="!myApp.isVisible">
               <span class="glyphicon btn-glyphicon glyphicon-arrow-left img-circle text-muted"></span> <!-- defining icon -->
             </a>
@@ -40,7 +40,7 @@
             </a>
 
           </div>
-          <table class="table table-striped">
+          <table class="table table-striped text-center">
             <thead>
             <tr>
               <th>#</th>
@@ -53,12 +53,12 @@
             <tr *ngFor="let photoalbum of photoalben; let i=index">
               <th scope="row">{{i + 1}}</th>
               <td><a
-                [routerLink]="['/photoalbum-details', userName, photoalbum.albumTitle]">{{photoalbum.albumTitle}}</a>
+                [routerLink]="['/photoalbum-details', userName, photoalbum.albumTitle]">{{photoalbum.albumTitle | uppercase}}</a>
               </td>
               <td>Description</td>
               <div class="btn-group" role="group" aria-label="...">
                 <td>
-                  <a class="btn icon-btn btn-warning">
+                  <a class="btn icon-btn btn-warning" (click)="myApp.appearInput()" [hidden]="myApp.isVisible">
                     <span class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-danger"></span>
                     Edit
                   </a>

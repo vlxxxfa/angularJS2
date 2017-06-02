@@ -17,3 +17,20 @@
 {
   display:inline;
 }
+
+.first {
+  display: inline;
+  float: left;
+}
+.second {
+  display: inline;
+  float: none;
+}
+.third {
+  display: inline;
+  float: right;
+}
+
+th {
+  text-align: center; /* Or right or left */
+}

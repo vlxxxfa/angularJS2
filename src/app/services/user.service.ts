@@ -12,7 +12,8 @@ export class UserService {
   constructor(private http: Http) {
   }
 
-  private baseUrl = 'http://localhost:8080/users/';
+ // private baseUrl = 'http://52.40.190.57:8080/users/'; // Backend 1
+  private baseUrl = 'http://54.71.5.40:8080/users/';  // Backend 2
 
   findUsers() {
     // Return response

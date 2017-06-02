@@ -4,12 +4,13 @@ import {Observable} from 'rxjs/Observable';
 import {User} from "../../models/user";
 import {UserService} from "../../services/user.service";
 import {AppComponent} from "../../app.component";
+import {FilterArrayPipe} from "../FilterArrayPipe";
 
 @Component({
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css', '../../styles.css'],
   // Providers
-  providers: [UserService]
+  providers: [UserService, FilterArrayPipe]
 })
 // Component class implementing OnInit
 export class UserListComponent implements OnInit {
@@ -18,6 +19,7 @@ export class UserListComponent implements OnInit {
   private user: Observable<User[]>;
   private myApp;
 
+  private todos = ["test1","test2","test3","test4","test5"];
 
   constructor(private userService: UserService, @Host() myApp: AppComponent) {
     this.myApp = myApp;

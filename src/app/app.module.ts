@@ -13,6 +13,7 @@ import {RegisterComponent} from "./components/register/register.component";
 import {BsDropdownModule, CarouselModule, TabsModule} from "ngx-bootstrap";
 import {NavbarComponent} from "./core/navbar.component";
 import {CSSCarouselComponent} from "./core/carousel.component";
+import {FilterArrayPipe} from "./components/FilterArrayPipe";
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import {CSSCarouselComponent} from "./core/carousel.component";
     LoginComponent,
     RegisterComponent,
     NavbarComponent,
-    CSSCarouselComponent
+    CSSCarouselComponent,
+    FilterArrayPipe
   ],
   providers: [
     UserService

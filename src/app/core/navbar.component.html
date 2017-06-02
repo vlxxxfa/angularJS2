@@ -15,19 +15,19 @@
     <div class="collapse navbar-collapse"
          [ngClass]="{ 'in': isIn }">
       <ul class="nav navbar-nav navbar-right">
-        <li>
+        <li (click)="toggleState()">
           <a class="mdl-navigation__link" [routerLink]="['/']">Home</a>
         </li>
-        <li>
+        <li (click)="toggleState()">
           <a class="mdl-navigation__link" [routerLink]="['/users']">Admin</a>
         </li>
-        <li>
+        <li (click)="toggleState()">
           <a class="mdl-navigation__link disabled" [routerLink]="['/login']">User</a>
         </li>
-        <li>
+        <li (click)="toggleState()">
           <a class="mdl-navigation__link" [routerLink]="['/register']"><span class="glyphicon glyphicon-user"></span> Register</a>
         </li>
-        <li>
+        <li (click)="toggleState()">
           <!--    <a class="mdl-navigation__link" [routerLink]="['/login']">Login</a>-->
           <a class="mdl-navigation__link" [routerLink]="['/login']"><span class="glyphicon glyphicon-log-in"></span> Login</a>
         </li>

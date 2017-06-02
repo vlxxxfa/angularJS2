@@ -27,7 +27,7 @@
 
         <div id="block_container" class="form-group">
 
-          <p id="bloc1">Photos in: "{{albumTitle}}"</p>
+          <p id="bloc1">Photos in: "{{albumTitle | uppercase}}"</p>
           <a id="bloc2" (click)="myApp.cancel()" (click)="myApp.appearInput(false)" [hidden]="!myApp.isVisible">
             <span class="glyphicon btn-glyphicon glyphicon-arrow-left img-circle text-muted"></span> <!-- defining icon -->
           </a>
