@@ -3,15 +3,15 @@
 <div class="login jumbotron center-block">
   <h1>Sign up</h1>
     <div class="form-group">
-      <input type="text" class="form-control" [(ngModel)]="username" placeholder="Username">
+      <input type="text" class="form-control" [(ngModel)]="data.username" placeholder="Username">
     </div>
     <div class="form-group">
-      <input type="text" class="form-control" [(ngModel)]="password" placeholder="Password">
+      <input type="password" class="form-control" [(ngModel)]="data.password" placeholder="Password">
     </div>
     <div class="form-group">
-      <input type="email" class="form-control" [(ngModel)]="email" placeholder="Email">
+      <input type="email" class="form-control" [(ngModel)]="data.email" placeholder="Email">
     </div>
-    <button (click)="createUser(username, password, email)">Sign up</button>
+    <button (click)="createUser(data.username, data.password, data.email)">Sign up</button>
     <a [routerLink]="['/login']">Click here to Login</a>
 </div>
 </div>
