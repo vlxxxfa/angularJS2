@@ -14,6 +14,7 @@ import {BsDropdownModule, CarouselModule, TabsModule} from "ngx-bootstrap";
 import {NavbarComponent} from "./core/navbar.component";
 import {CSSCarouselComponent} from "./core/carousel.component";
 import {FilterArrayPipe} from "./components/FilterArrayPipe";
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 
 @NgModule({
   imports: [
@@ -39,7 +40,10 @@ import {FilterArrayPipe} from "./components/FilterArrayPipe";
     FilterArrayPipe
   ],
   providers: [
-    UserService
+    UserService,
+    {
+      provide: LocationStrategy, useClass: HashLocationStrategy
+    }
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
