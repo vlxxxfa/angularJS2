@@ -4,6 +4,7 @@
 import {Component, ElementRef} from '@angular/core';
 import {Observable} from "rxjs";
 import {UserService} from "../../services/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'login-form',
@@ -14,13 +15,23 @@ import {UserService} from "../../services/user.service";
 
 export class LoginComponent {
 
-  data = {};
-
-  login(userName, passWord) {
-    alert("Username: " + userName + "\nPassword: " +  passWord)
-  };
-
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
   }
 
+  login(userName, passWord) {
+    this.userService.findUserByUserNameAndPassword(userName, passWord)
+      .subscribe(
+        data => {
+          this.router.navigate(['/users'])
+         console.log(data)
+        // refresh the list
+        console.log("Hello admin!")
+        return true;
+      },
+      error => {
+        console.error("Error find a User!");
+        return Observable.throw(error);
+      }
+    );
+  }
 }

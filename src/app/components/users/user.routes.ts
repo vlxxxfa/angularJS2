@@ -9,8 +9,18 @@ import {PhotoAlbumDetailsComponent} from "./photoalbum-details.component";
 
 // Route Configuration
 export const userRoutes: Routes = [
-  { path: 'users', component: UserListComponent },
-  { path: 'user-details/:userName', component: UserDetailsComponent },
-  { path: 'photoalbum-details/:userName/:albumTitle', component: PhotoAlbumDetailsComponent }
+  {
+    path: 'users',
+    component: UserListComponent,
+   // canActivate: [AuthGuard]
+  },
+  {
+    path: 'user-details/:userName',
+    component: UserDetailsComponent
+  },
+  {
+    path: 'photoalbum-details/:userName/:albumTitle',
+    component: PhotoAlbumDetailsComponent
+  }
 
 ];
