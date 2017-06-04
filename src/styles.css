@@ -27,7 +27,8 @@
   float: none;
 }
 .third {
-  display: inline;
+  margin-top: 16px;
+  display: block;
 }
 
 th {
